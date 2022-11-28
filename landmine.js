@@ -3,7 +3,7 @@ const scene = new THREE.Scene();
 const camera = new THREE.Camera();
 let x=0,y=0 ;
 let widthscreen=window.innerWidth , heightscreen= window.innerHeight;
-camera.position.set( 0, 0, 5);
+camera.position.set( 0, 0, 10);
 scene.add(camera);
 const renderer = new THREE.WebGLRenderer({
     antialias:true,
@@ -50,7 +50,7 @@ window.addEventListener('resize',function(){
 });
 
 scene.visible = false;
-const light =new THREE.HemisphereLight(0xffffff ,0xbbbbff,5);
+const light =new THREE.HemisphereLight(0xffffff ,0xbbbbff,10);
     scene.add(light);
 var root ;
 const gltfLoader = new THREE.GLTFLoader();
@@ -75,10 +75,9 @@ function animate() {
    if(root){ 
     root.rotation.z=0;
     root.rotation.y=root.rotation.y+0.01;
-    root.rotation.x=-90;
-    console.log(root.position.x, root.position.y);
+    root.rotation.x=0;
     root.position.x=x/heightscreen;
-    root.position.y=y/widthscreen;
+    root.position.y=y/widthscreen-1;
     }
     renderer.render( scene, camera );
     ArToolkitContext.update(ArToolkitSource.domElement);
