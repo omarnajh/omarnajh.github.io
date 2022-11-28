@@ -1,7 +1,8 @@
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(50,window.innerWidth/window.innerHeight,0.1,2000);
-let x=0,y=0;
+const camera = new THREE.Camera();
+let x=0,y=0 ;
+let widthscreen=window.innerWidth , heightscreen= window.innerHeight;
 camera.position.set( 0, 0, 5);
 scene.add(camera);
 const renderer = new THREE.WebGLRenderer({
@@ -49,7 +50,7 @@ window.addEventListener('resize',function(){
 });
 
 scene.visible = false;
-const light =new THREE.HemisphereLight(0xffffff ,0xbbbbff,10);
+const light =new THREE.HemisphereLight(0xffffff ,0xbbbbff,5);
     scene.add(light);
 var root ;
 const gltfLoader = new THREE.GLTFLoader();
@@ -71,8 +72,14 @@ scene.add( cube );*/
 
 function animate() {
     requestAnimationFrame( animate );
-   if(root){ root.rotation.x=y/100;
-    root.rotation.y=x/100;}
+   if(root){ 
+    root.rotation.z=0;
+    root.rotation.y=root.rotation.y+0.01;
+    root.rotation.x=-90;
+    console.log(root.position.x, root.position.y);
+    root.position.x=x/heightscreen;
+    root.position.y=y/widthscreen;
+    }
     renderer.render( scene, camera );
     ArToolkitContext.update(ArToolkitSource.domElement);
     scene.visible= camera.visible;

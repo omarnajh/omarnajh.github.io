@@ -1,7 +1,7 @@
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(50,window.innerWidth/window.innerHeight,0.1,2000);
-let x=0,y=0 ,x2 =0;
+const camera = new THREE.Camera();
+let x=0,y=0 ;
 let widthscreen=window.innerWidth , heightscreen= window.innerHeight;
 camera.position.set( 0, 0, 5);
 scene.add(camera);
@@ -15,9 +15,6 @@ function f(ev){
     var touch = ev.touches[0];
     x=touch.clientX;
     y=touch.clientY;
-    if(ev.touches.length){
-    var touch2 =ev.touches[1];
-    x2=touch.clientX;}
 }
 document.querySelector("#Ar_content").appendChild( renderer.domElement );
 var ArToolkitSource = new THREEx.ArToolkitSource({
@@ -80,9 +77,8 @@ function animate() {
     root.rotation.y=root.rotation.y+0.01;
     root.rotation.x=-90;
     console.log(root.position.x, root.position.y);
-    root.position.z=y/heightscreen;
-    root.position.x=x/widthscreen;
-    root.position.y=x2/widthscreen;
+    root.position.x=x/heightscreen;
+    root.position.y=y/widthscreen;
     }
     renderer.render( scene, camera );
     ArToolkitContext.update(ArToolkitSource.domElement);
